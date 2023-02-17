@@ -1,0 +1,27 @@
+[Unit]
+Description=Rclone Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+Environment=RCLONE_CONFIG=/root/.config/rclone/rclone.conf
+KillMode=none
+RestartSec=5
+ExecStart=/usr/bin/rclone mount nat189: /mnt/media \
+--allow-other \
+--dir-cache-time 1000h \
+--log-level INFO \
+--log-file /tmp/rclone_mount.log \
+--poll-interval 15s \
+--umask 000 \
+--cache-dir=/tmp/cache \
+--vfs-cache-mode full \
+--vfs-cache-max-size 40G \
+--vfs-cache-max-age 48h \
+
+ExecStop=/bin/fusermount -uzq /mnt/media
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
