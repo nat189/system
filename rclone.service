@@ -8,7 +8,7 @@ Type=notify
 Environment=RCLONE_CONFIG=/root/.config/rclone/rclone.conf
 KillMode=none
 RestartSec=5
-ExecStart=/usr/bin/rclone mount nat189: /mnt/media \
+ExecStart=/usr/bin/rclone mount nat189: /mnt/disk1/gdrive/nat189 \
 --allow-other \
 --dir-cache-time 1000h \
 --log-level INFO \
@@ -17,11 +17,12 @@ ExecStart=/usr/bin/rclone mount nat189: /mnt/media \
 --umask 000 \
 --cache-dir=/tmp/cache \
 --vfs-cache-mode full \
---vfs-cache-max-size 40G \
---vfs-cache-max-age 48h \
+--vfs-cache-max-size 4G \
+--vfs-cache-max-age 0m \
 
-ExecStop=/bin/fusermount -uzq /mnt/media
+ExecStop=/bin/fusermount -uzq /mnt/disk1/gdrive/nat189
 Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
+
