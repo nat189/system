@@ -8,7 +8,7 @@ Type=notify
 Environment=RCLONE_CONFIG=/root/.config/rclone/rclone.conf
 KillMode=none
 RestartSec=5
-ExecStart=/usr/bin/rclone mount nat189: /mnt/disk1/gdrive/nat189 \
+ExecStart=/usr/bin/rclone mount remote: /volume1/media \
 --allow-other \
 --dir-cache-time 1000h \
 --log-level INFO \
@@ -20,7 +20,7 @@ ExecStart=/usr/bin/rclone mount nat189: /mnt/disk1/gdrive/nat189 \
 --vfs-cache-max-size 4G \
 --vfs-cache-max-age 0m \
 
-ExecStop=/bin/fusermount -uzq /mnt/disk1/gdrive/nat189
+ExecStop=/bin/fusermount -uzq /volume1/media
 Restart=on-failure
 
 [Install]
